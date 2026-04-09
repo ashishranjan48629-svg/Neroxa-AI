@@ -1,30 +1,29 @@
-// client/src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import { AuthProvider } from "./context/AuthContext";
+import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Pricing from "./pages/Pricing";
-
-import { AuthProvider } from "./context/AuthContext";
-
+import Feature from "./pages/Feature";
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-black text-white">
-          <Navbar />
-          <Routes>
-            {/* Define your routes here */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/pricing" element={<Pricing />} />
-
-          </Routes>
+    <Router>
+      <AuthProvider>
+        <div className="flex h-screen overflow-hidden">
+          <Sidebar />
+          <main className="flex-1 overflow-y-auto">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/features" element={<Feature />} />
+            </Routes>
+          </main>
         </div>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 };
 
