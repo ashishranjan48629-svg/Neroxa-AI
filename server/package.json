@@ -6,21 +6,30 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.88.0",
+    "@google/generative-ai": "^0.24.1",
     "bcrypt": "^6.0.0",
-    "cors": "^2.8.5",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.1",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "openai": "^6.33.0",
-    "stripe": "^22.0.0"
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.2",
+    "express-validator": "^7.3.2",
+    "groq-sdk": "^1.1.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1",
+    "morgan": "^1.10.1",
+    "openai": "^6.34.0",
+    "stripe": "^22.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.14"
   }
 }

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const CheckIcon = () => (
   <svg
@@ -10,7 +12,7 @@ const CheckIcon = () => (
   >
     <path
       d="M2.5 7L5.5 10L11.5 4"
-      stroke="#9CA3AF"
+      stroke="#7c3aed"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -18,58 +20,13 @@ const CheckIcon = () => (
   </svg>
 );
 
-// Optional placeholder icon
-const ClaudeIcon = () => <div className="w-6 h-6 rounded-full bg-violet-500" />;
-
 const plans = [
   {
-    name: "Max",
-    tagline: "Higher limits, priority access",
-    price: "$50",
-    priceSuffix: "USD / month",
-    priceSuffix2: "billed monthly",
-    cta: "Get Max plan",
-    ctaStyle: "white",
-    note: "No commitment · Cancel anytime",
-    featuresHeader: "Everything in Pro, plus:",
-    features: [
-      "Up to 20x more usage than Pro*",
-      "Early access to advanced Claude features",
-      "Higher output limits for all tasks",
-      "Priority access at high traffic times",
-      "Claude in PowerPoint",
-    ],
-    moreFeaturesCount: null,
-  },
-  {
-    name: "Pro",
-    tagline: "Research, code, and organize",
-    price: "$17",
-    priceSuffix: "USD / month",
-    priceSuffix2: "billed annually",
-    cta: "Get Pro plan",
-    ctaStyle: "white",
-    note: null,
-    featuresHeader: "Everything in Free and:",
-    features: [
-      "Claude Code directly in your codebase",
-      "Power through tasks with Cowork",
-      "Higher usage limits",
-      "Deep research and analysis",
-    ],
-    moreFeaturesCount: 5,
-    showToggle: true,
-  },
-  {
     name: "Free",
-    tagline: "Meet Claude",
+    tagline: "Meet Neroxa",
     price: "$0",
-    priceSuffix: null,
-    priceSuffix2: null,
-    cta: "Use Claude for free",
-    ctaStyle: "dark",
-    note: null,
-    featuresHeader: null,
+    cta: "Use Neroxa for free",
+    ctaStyle: "ghost",
     features: [
       "Chat on web, iOS, Android, and desktop",
       "Generate code and visualize data",
@@ -78,105 +35,147 @@ const plans = [
     ],
     moreFeaturesCount: 6,
   },
+  {
+    name: "Pro",
+    tagline: "Research, code, and organize",
+    price: "$17",
+    priceSuffix: "/ mo",
+    priceSuffix2: "billed annually",
+    cta: "Get Pro plan",
+    ctaStyle: "violet",
+    featured: true,
+    featuresHeader: "Everything in Free, plus:",
+    features: [
+      "Neroxa Code directly in your codebase",
+      "Power through tasks with Cowork",
+      "Higher usage limits",
+      "Deep research and analysis",
+    ],
+    moreFeaturesCount: 5,
+  },
+  {
+    name: "Max",
+    tagline: "Higher limits, priority access",
+    price: "$50",
+    priceSuffix: "/ mo",
+    priceSuffix2: "billed monthly",
+    cta: "Get Max plan",
+    ctaStyle: "white",
+    note: "No commitment · Cancel anytime",
+    featuresHeader: "Everything in Pro, plus:",
+    features: [
+      "Up to 20x more usage than Pro",
+      "Early access to advanced features",
+      "Higher output limits for all tasks",
+      "Priority access at high traffic times",
+      "Claude in PowerPoint",
+    ],
+  },
 ];
 
 export default function PricingCards() {
-  const [billing, setBilling] = useState("yearly");
-
+  const navigate = useNavigate();
   return (
-    <div className="bg-black py-16 px-6 md:px-12 lg:px-24 min-h-screen flex flex-col items-center">
-      {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
-        Choose the right plan for you
-      </h2>
+    <div className="bg-black min-h-screen flex flex-col items-center justify-center py-20 px-4 sm:px-6">
+      <button
+        onClick={() => navigate(-1)}
+        className="fixed top-5 right-5 z-50 w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:text-white hover:bg-white/10 border border-white/10 transition-colors"
+        aria-label="Go back"
+      >
+        <FontAwesomeIcon icon={faXmark} />
+      </button>
 
-      {/* Cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+      {/* Header */}
+      <p className="text-violet-400 text-sm font-medium mb-3">Pricing</p>
+      <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-3 text-center">
+        Choose the right plan
+      </h2>
+      <p className="text-gray-500 text-sm mb-14 text-center">
+        Start free. Upgrade when you're ready.
+      </p>
+
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl items-stretch">
         {plans.map((plan) => (
           <div
             key={plan.name}
-            className=" rounded-2xl flex flex-col overflow-hidden border border-violet-50"
+            className={`relative flex flex-col h-full rounded-2xl border p-6 transition-all ${
+              plan.featured
+                ? "border-violet-500/40 bg-violet-600/5"
+                : "border-white/10 bg-white/[0.03]"
+            }`}
           >
-            {/* Top section */}
-            <div className="p-6 flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                {plan.showToggle && (
-                  <div className="flex items-center bg-[#1e1e1e] rounded-full p-1 text-xs">
-                    <button
-                      onClick={() => setBilling("monthly")}
-                      className={`px-3 py-1 rounded-full transition-colors ${
-                        billing === "monthly"
-                          ? "bg-[#3a3a3a] text-white"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      Monthly
-                    </button>
-                    <button
-                      onClick={() => setBilling("yearly")}
-                      className={`px-3 py-1 rounded-full transition-colors flex items-center gap-1 ${
-                        billing === "yearly"
-                          ? "bg-[#3a3a3a] text-white"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      Yearly
-                      <span className="text-blue-400 font-medium">· Save 17%</span>
-                    </button>
-                  </div>
-                )}
-              </div>
+            {/* Featured badge */}
+            {plan.featured && (
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium bg-violet-600 text-white px-3 py-0.5 rounded-full">
+                Most popular
+              </span>
+            )}
 
-              <div>
-                <h3 className="text-white font-bold text-xl mb-1">{plan.name}</h3>
-                <p className="text-gray-400 text-sm">{plan.tagline}</p>
-              </div>
+            {/* Plan name + tagline */}
+            <p className="text-white font-semibold text-base mb-0.5">
+              {plan.name}
+            </p>
+            <p className="text-gray-500 text-xs mb-5">{plan.tagline}</p>
 
-              <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-white font-bold text-3xl md:text-4xl">
-                  {plan.price}
+            {/* Price */}
+            <div className="flex items-baseline gap-1 mb-1">
+              <span className="text-white font-bold text-3xl">
+                {plan.price}
+              </span>
+              {plan.priceSuffix && (
+                <span className="text-gray-400 text-sm">
+                  {plan.priceSuffix}
                 </span>
-                {plan.priceSuffix && (
-                  <div className="flex flex-col leading-tight">
-                    <span className="text-gray-400 text-xs">{plan.priceSuffix}</span>
-                    <span className="text-gray-500 text-xs">{plan.priceSuffix2}</span>
-                  </div>
-                )}
-              </div>
-
-              <button
-                className={`w-full py-3 px-4 rounded-xl font-medium text-sm transition-opacity hover:opacity-90 ${
-                  plan.ctaStyle === "white"
-                    ? "bg-white text-black"
-                    : "bg-[#1e1e1e] text-white border border-white/10"
-                }`}
-              >
-                {plan.cta}
-              </button>
-
-              {plan.note && (
-                <p className="text-center text-gray-500 text-xs mt-2">{plan.note}</p>
               )}
             </div>
+            {plan.priceSuffix2 ? (
+              <p className="text-gray-600 text-xs mb-5">{plan.priceSuffix2}</p>
+            ) : (
+              <div className="mb-5" />
+            )}
 
-            {/* Divider */}
-            <div className="border-t border-white/5" />
+            {/* CTA */}
+            <button
+              className={`w-full py-2 rounded-lg text-sm font-medium transition mb-2 ${
+                plan.ctaStyle === "violet"
+                  ? "bg-violet-600 hover:bg-violet-500 text-white"
+                  : plan.ctaStyle === "white"
+                    ? "bg-white hover:bg-gray-100 text-black"
+                    : "border border-white/10 text-gray-300 hover:bg-white/5"
+              }`}
+            >
+              {plan.cta}
+            </button>
 
-            {/* Features */}
-            <div className="p-6 flex flex-col gap-2 flex-1">
+            {plan.note ? (
+              <p className="text-center text-gray-600 text-xs mb-2">
+                {plan.note}
+              </p>
+            ) : (
+              <div className="mb-2" />
+            )}
+
+            {/* Features — flex-1 pushes this to fill remaining height */}
+            <div className="flex flex-col flex-1">
+              <div className="border-t border-white/5 my-4" />
               {plan.featuresHeader && (
-                <p className="text-white text-sm font-medium mb-2">{plan.featuresHeader}</p>
+                <p className="text-gray-400 text-xs font-medium mb-3">
+                  {plan.featuresHeader}
+                </p>
               )}
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-2.5">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
                     <CheckIcon />
-                    <span className="text-gray-300 text-sm">{feature}</span>
+                    <span className="text-gray-400 text-xs leading-relaxed">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
               {plan.moreFeaturesCount && (
-                <p className="text-gray-400 text-sm mt-1">
+                <p className="text-gray-600 text-xs mt-3">
                   +{plan.moreFeaturesCount} more features
                 </p>
               )}

@@ -1,0 +1,26 @@
+{
+  "name": "neroxa-ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && node server.js",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashishranjan48629-svg/Neroxa-AI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ashishranjan48629-svg/Neroxa-AI/issues"
+  },
+  "homepage": "https://github.com/ashishranjan48629-svg/Neroxa-AI#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
